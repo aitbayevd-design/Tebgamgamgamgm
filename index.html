@@ -1,0 +1,940 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Teb Gaming — внутренний портал</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23F2A900'/%3E%3Ctext x='32' y='42' font-family='Arial,sans-serif' font-size='28' font-weight='800' text-anchor='middle' fill='%231C2130'%3ETG%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#E9ECF1; --surface:#FFFFFF; --surface2:#F4F6F9; --line:#D5DAE2;
+  --ink:#171B24; --ink2:#4A5263; --ink3:#727B8C;
+  --side:#1C2130; --sideInk:#C9CFDB; --sideOn:#FFFFFF;
+  --accent:#F2A900; --accentInk:#1C2130;
+  --ok:#1A8C57; --warn:#B8681C; --bad:#C93A32; --info:#2F5FCC;
+  --okBg:#E3F5EC; --warnBg:#FCEFE0; --badBg:#FBE6E4; --infoBg:#E6EDFC;
+  --r:10px;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#11141B; --surface:#1A1E28; --surface2:#222734; --line:#2F3545;
+    --ink:#E8EBF1; --ink2:#AEB5C3; --ink3:#8790A2;
+    --side:#0B0E14; --sideInk:#9AA3B5; --sideOn:#FFFFFF;
+    --accent:#F2B21C; --accentInk:#14171F;
+    --ok:#3CC487; --warn:#E89A4A; --bad:#F06A60; --info:#7FA2F5;
+    --okBg:#163326; --warnBg:#3A2814; --badBg:#3D1C1A; --infoBg:#18264A;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#11141B; --surface:#1A1E28; --surface2:#222734; --line:#2F3545;
+  --ink:#E8EBF1; --ink2:#AEB5C3; --ink3:#8790A2;
+  --side:#0B0E14; --sideInk:#9AA3B5; --sideOn:#FFFFFF;
+  --accent:#F2B21C; --accentInk:#14171F;
+  --ok:#3CC487; --warn:#E89A4A; --bad:#F06A60; --info:#7FA2F5;
+  --okBg:#163326; --warnBg:#3A2814; --badBg:#3D1C1A; --infoBg:#18264A;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:15px/1.45 Onest,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-variant-numeric:tabular-nums}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--info)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.app{display:grid;grid-template-columns:232px 1fr;min-height:100vh}
+aside{background:var(--side);color:var(--sideInk);padding:22px 14px;display:flex;flex-direction:column;gap:4px;position:sticky;top:0;height:100vh;height:100dvh}
+.brand{display:flex;align-items:center;gap:10px;padding:0 8px 22px;color:var(--sideOn)}
+.mark{width:34px;height:34px;border-radius:8px;background:var(--accent);color:var(--accentInk);display:grid;place-items:center;font-weight:800;font-size:15px;letter-spacing:-.5px;flex:none}
+.brand b{font-size:17px;font-weight:800;letter-spacing:-.3px;display:block;line-height:1.1}
+.brand small{font-size:12px;opacity:.65}
+.nav{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;border:0;background:none;color:inherit;text-align:left;cursor:pointer;font-weight:500;width:100%}
+.nav:hover{background:rgba(255,255,255,.06)}
+.nav[aria-current="page"]{background:rgba(255,255,255,.1);color:var(--sideOn)}
+.nav .cnt{margin-left:auto;background:var(--accent);color:var(--accentInk);border-radius:20px;font-size:12px;font-weight:700;padding:1px 8px}
+.who{margin-top:auto;padding:12px;border-top:1px solid rgba(255,255,255,.08);font-size:13px}
+.who b{color:var(--sideOn);display:block;font-weight:600}
+.who .live{display:flex;align-items:center;gap:6px;margin:8px 0 10px;font-size:12px;opacity:.8}
+.who .live i{width:7px;height:7px;border-radius:50%;background:#3CC487;display:block}
+.who .live.off i{background:#8790A2}
+.who button{background:none;border:1px solid rgba(255,255,255,.18);color:var(--sideInk);border-radius:7px;padding:5px 10px;cursor:pointer;font-size:13px}
+.who button:hover{color:var(--sideOn);border-color:rgba(255,255,255,.4)}
+main{padding:26px 30px 60px;min-width:0}
+.head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+h1{font-size:26px;font-weight:800;letter-spacing:-.6px;margin:0;margin-right:auto}
+h2{font-size:17px;font-weight:700;margin:0 0 10px;letter-spacing:-.2px}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:8px 14px;cursor:pointer;font-weight:600;font-size:14px;white-space:nowrap}
+.btn:hover{border-color:var(--ink3)}
+.btn.pri{background:var(--accent);border-color:var(--accent);color:var(--accentInk)}
+.btn.dark{background:var(--ink);border-color:var(--ink);color:var(--surface)}
+.btn.ghost{background:none;border-color:transparent}
+.btn.bad{color:var(--bad)}
+.btn.sm{padding:5px 10px;font-size:13px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.in{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:8px 10px;width:100%;min-width:0}
+textarea.in{resize:vertical;min-height:64px}
+.in:focus{border-color:var(--accent);outline:none}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+.muted{color:var(--ink3)} .small{font-size:13px}
+.tbl-wrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th{text-align:left;font-weight:600;color:var(--ink3);font-size:12.5px;padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap;background:var(--surface2)}
+td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+tr.click{cursor:pointer} tr.click:hover td{background:var(--surface2)}
+.num{text-align:right;white-space:nowrap}
+.clamp{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pill{display:inline-flex;align-items:center;gap:6px;border-radius:20px;padding:2px 9px;font-size:12.5px;font-weight:600;white-space:nowrap}
+.p-ok{background:var(--okBg);color:var(--ok)} .p-warn{background:var(--warnBg);color:var(--warn)} .p-bad{background:var(--badBg);color:var(--bad)} .p-info{background:var(--infoBg);color:var(--info)} .p-neu{background:var(--surface2);color:var(--ink2)}
+/* the conveyor: one LED per stage */
+.leds{display:flex;gap:3px;align-items:center}
+.leds i{width:14px;height:6px;border-radius:2px;background:var(--line);display:block}
+.leds i.on{background:var(--ok)} .leds i.cur{background:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 30%,transparent)}
+.stage-line{display:flex;margin:6px 0 18px;overflow-x:auto}
+.stage-line div{flex:1;min-width:92px;padding:8px 8px 0;border-top:4px solid var(--line);font-size:12px;color:var(--ink3);line-height:1.25}
+.stage-line div.on{border-color:var(--ok);color:var(--ink2)}
+.stage-line div.cur{border-color:var(--accent);color:var(--ink);font-weight:700}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.toolbar .in{width:auto}
+.toolbar .grow{flex:1;min-width:180px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--surface)}
+.seg button{border:0;background:none;padding:7px 12px;cursor:pointer;font-weight:500;font-size:13.5px}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--surface)}
+.board{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(240px,1fr);gap:12px;overflow-x:auto;padding-bottom:8px}
+.col{background:var(--surface2);border-radius:var(--r);padding:10px;min-height:200px;border:1px solid var(--line)}
+.col h3{display:flex;justify-content:space-between;margin:2px 4px 10px;font-size:14px;font-weight:700}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 11px;margin-bottom:8px;cursor:pointer;display:block;width:100%;text-align:left}
+.card:hover{border-color:var(--ink3)}
+.card .t{display:flex;justify-content:space-between;gap:6px;font-weight:700;font-size:14px}
+.card .cfg{font-size:12.5px;color:var(--ink2);margin:4px 0 6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card .meta{display:flex;flex-wrap:wrap;gap:4px;font-size:12px;color:var(--ink3)}
+.card.flag{border-left:4px solid var(--bad)}
+.scrim{position:fixed;inset:0;background:rgba(10,12,18,.5);display:flex;justify-content:flex-end;z-index:50}
+.sheet{background:var(--bg);width:min(860px,100%);height:100%;overflow-y:auto;padding:calc(22px + env(safe-area-inset-top,0px)) 26px calc(40px + env(safe-area-inset-bottom,0px));animation:slide .18s ease-out}
+.sheet.narrow{width:min(480px,100%)}
+@keyframes slide{from{transform:translateX(30px);opacity:.6}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.sheet{animation:none}}
+.sheet-head{display:flex;align-items:flex-start;gap:12px;margin-bottom:6px}
+.sheet-head h1{font-size:22px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+label.f{display:flex;flex-direction:column;gap:5px;font-size:13px;font-weight:600;color:var(--ink2)}
+.sec{margin-top:16px}
+.items-row{display:grid;grid-template-columns:1fr 70px 120px 34px;gap:6px;margin-bottom:6px}
+.kv{display:grid;grid-template-columns:140px 1fr;gap:4px 12px;font-size:14px;margin:0}
+.kv dt{color:var(--ink3)} .kv dd{margin:0;word-break:break-word}
+.check{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border-radius:8px;cursor:pointer}
+.check:hover{background:var(--surface2)}
+.check input{width:18px;height:18px;margin:1px 0 0;accent-color:var(--ok);flex:none}
+.check.done span{color:var(--ink3);text-decoration:line-through}
+.alert{border-radius:var(--r);padding:12px 14px;margin:12px 0;display:flex;gap:12px;align-items:flex-start}
+.alert.bad{background:var(--badBg)} .alert.bad b{color:var(--bad)}
+.alert.warn{background:var(--warnBg)}
+.alert.info{background:var(--infoBg)}
+.feed{display:flex;flex-direction:column;gap:8px;max-height:320px;overflow-y:auto}
+.msg{background:var(--surface2);border-radius:8px;padding:8px 10px;font-size:14px}
+.msg .h{font-size:12px;color:var(--ink3);margin-bottom:2px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:16px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px}
+.kpi .v{font-size:24px;font-weight:800;letter-spacing:-.6px;margin-top:2px}
+.kpi .l{font-size:13px;color:var(--ink3)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bar{height:8px;background:var(--surface2);border-radius:4px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent)}
+.empty{text-align:center;padding:40px 16px;color:var(--ink3)}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--surface);padding:10px 16px;border-radius:8px;font-weight:600;z-index:80;font-size:14px;max-width:calc(100% - 32px)}
+.banner{background:var(--warnBg);border-bottom:1px solid var(--line);padding:8px 30px;font-size:13.5px}
+.low td{background:var(--badBg)}
+.mob-top{display:none}
+/* sign-in screens */
+.auth{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:24px 16px;background:var(--side)}
+.auth-card{background:var(--surface);border-radius:14px;padding:28px;width:min(400px,100%);display:grid;gap:14px}
+.auth-card .brand{color:var(--ink);padding:0 0 6px}
+.auth-card h1{font-size:22px}
+.form-err{color:var(--bad);font-size:14px;font-weight:600;min-height:0}
+.form-err:empty{display:none}
+.center{max-width:460px;margin:12vh auto;text-align:center;padding:0 16px}
+@media (max-width:860px){
+  .app{grid-template-columns:1fr}
+  aside{position:fixed;inset:auto 0 0 0;top:auto;height:auto;flex-direction:row;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));z-index:40;overflow-x:auto;gap:2px}
+  aside .brand,aside .who{display:none}
+  .nav{flex-direction:column;gap:2px;font-size:11.5px;padding:6px 10px;min-width:72px;align-items:center;text-align:center}
+  .nav .cnt{margin:0;font-size:10.5px;padding:0 6px}
+  main{padding:14px 14px 110px}
+  .mob-top{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+  .mob-top b{font-weight:800}
+  .mob-top .grow{flex:1;min-width:0;font-size:13px;color:var(--ink3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .grid2,.grid3,.two{grid-template-columns:1fr}
+  .kv{grid-template-columns:110px 1fr}
+  .sheet{padding:calc(16px + env(safe-area-inset-top,0px)) 14px calc(40px + env(safe-area-inset-bottom,0px))}
+  .items-row{grid-template-columns:1fr 54px 92px 30px}
+  .banner{padding:8px 14px}
+  .otbl thead{display:none}
+  .otbl tr{display:grid;grid-template-columns:1fr auto;grid-template-areas:"num sum" "cli cli" "cfg cfg" "st pay" "ship ship";gap:6px 12px;padding:12px 14px;border-bottom:1px solid var(--line)}
+  .otbl tr:last-child{border-bottom:0}
+  .otbl td{border:0;padding:0;max-width:none!important}
+  .otbl .c-num{grid-area:num}.otbl .c-sum{grid-area:sum}.otbl .c-cli{grid-area:cli}.otbl .c-cfg{grid-area:cfg}
+  .otbl .c-st{grid-area:st}.otbl .c-pay{grid-area:pay;text-align:right}.otbl .c-ship{grid-area:ship}
+  .otbl .c-ship::before{content:"Отправить до ";color:var(--ink3)}
+}
+</style>
+</head>
+<body>
+<div id="root"><div class="center muted">Загрузка…</div></div>
+<div id="modal"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
+<script>
+"use strict";
+/* ---------- connection ---------- */
+// Public browser key: safe to keep in the page, all data is protected by logins and database rules.
+const SB_URL="https://onedtxrlktxdtbwtmzlb.supabase.co";
+const SB_KEY="sb_publishable_iWgxsSEKTvEckT7oJUfYuw_0mF737wX";
+const LOGIN_DOMAIN="tebgaming.local";
+
+/* ---------- constants ---------- */
+const ROLES={admin:"Администратор",manager:"Менеджер",lead:"Главный сборщик",assembler:"Сборщик",partner:"Партнёр / склад"};
+const STAGES=[
+  {k:"new",t:"Оформлен"},{k:"queue",t:"В очереди на сборку"},{k:"build",t:"Сборка"},{k:"soft",t:"Windows и ПО"},
+  {k:"test",t:"Тест и оптимизация"},{k:"pack",t:"Комплектация"},{k:"ready",t:"Готов к отправке"},{k:"sent",t:"Отправлен"},{k:"done",t:"Доставлен"}
+];
+const SIDX=Object.fromEntries(STAGES.map((s,i)=>[s.k,i]));
+const SHOP_STAGES=["queue","build","soft","test","pack","ready"];
+const PAY=["Kaspi рассрочка","Kaspi Red","Kaspi Gold перевод","Kaspi QR","Карта (терминал)","Наличные","Безнал по счёту"];
+const PAYST={paid:"Оплачено",partial:"Частично",wait:"Ожидается"};
+const CHANNELS=["Kaspi магазин","Instagram","WhatsApp","Шоурум","Сайт","Другое"];
+const DELIV={own:"Наша доставка",city:"Отправка в другой город",pickup:"Самовывоз"};
+const CITIES=["Алматы","Астана","Шымкент","Караганда","Актобе","Тараз","Павлодар","Усть-Каменогорск","Семей","Атырау","Костанай","Кызылорда","Уральск","Петропавловск","Актау","Талдыкорган","Туркестан","Кокшетау","Экибастуз","Другой"];
+const CATS=["Процессор","Видеокарта","Материнская плата","Оперативная память","SSD / HDD","Блок питания","Корпус","Охлаждение","Вентиляторы","Wi‑Fi / сеть","Периферия","Кабели / прочее","ПО / лицензии"];
+const CHECKLIST=[
+  "Все комплектующие из заказа стоят на месте","Windows установлен и активирован","Драйверы и BIOS обновлены",
+  "Стресс-тест пройден, температуры в норме","Профиль памяти XMP/EXPO включён","Видео сборки и теста снято",
+  "Кабель питания положен","Коробки и документы от комплектующих положены","Антенны Wi‑Fi, переходники, винты положены",
+  "Гарантийный талон и чек положены","Периферия из заказа положена","Упаковка: каркас / плёнка, фото упакованного ПК"
+];
+const DEFAULT_COMM={"Kaspi рассрочка":12,"Kaspi Red":10,"Kaspi Gold перевод":0,"Kaspi QR":1,"Карта (терминал)":1.5,"Наличные":0,"Безнал по счёту":0};
+
+/* ---------- state ---------- */
+const S={
+  phase:"loading",uid:null,me:null,role:null,
+  orders:new Map(),stock:new Map(),logs:[],profiles:new Map(),changes:new Map(),events:new Map(),
+  settings:{commissions:{...DEFAULT_COMM}},
+  tab:location.hash.slice(1)||"",
+  f:{q:"",st:"active",shop:"all",period:"month",stq:"",stcat:"",from:"",to:""},
+  modal:null,live:false,loadError:null,shown:null
+};
+let sb=null,channel=null;
+
+/* ---------- utils ---------- */
+const $=s=>document.querySelector(s);
+const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const money=n=>(Math.round(+n||0)).toLocaleString("ru-RU")+" ₸";
+const fdt=iso=>iso?new Date(iso).toLocaleString("ru-RU",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"}):"—";
+function fd(v){if(!v)return"—";if(/^\d{4}-\d{2}-\d{2}$/.test(v)){const[y,m,d]=v.split("-");return `${d}.${m}.${y.slice(2)}`}return new Date(v).toLocaleDateString("ru-RU",{day:"2-digit",month:"2-digit",year:"2-digit"})}
+const pad=n=>String(n).padStart(2,"0");
+const ymd=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const todayStr=()=>ymd(new Date());
+const toLocalInput=iso=>{if(!iso)return"";const d=new Date(iso);return `${ymd(d)}T${pad(d.getHours())}:${pad(d.getMinutes())}`};
+const fromLocalInput=v=>v?new Date(v).toISOString():null;
+const onum=o=>"TG-"+o.num;
+const nm=id=>{if(!id)return"—";const p=S.profiles.get(id);return p?p.name:"Сотрудник"};
+function toast(t){document.querySelectorAll(".toast").forEach(x=>x.remove());const el=document.createElement("div");el.className="toast";el.setAttribute("role","status");el.textContent=t;document.body.appendChild(el);setTimeout(()=>el.remove(),2800)}
+function errText(e){
+  const m=(e&&(e.message||e.error_description||e.msg))||String(e||"");
+  if(/Failed to fetch|NetworkError|Load failed|network/i.test(m))return"Нет связи с сервером — проверьте интернет";
+  if(/Invalid login credentials/i.test(m))return"Неверный логин или пароль";
+  if(/banned/i.test(m))return"Доступ отключён администратором";
+  if(/JWT|refresh token|session/i.test(m))return"Сессия истекла — войдите заново";
+  return m||"Не получилось, попробуйте ещё раз";
+}
+async function q(builder){const r=await builder;if(r.error)throw r.error;return r.data}
+async function act(fn,ok,...reloads){
+  try{const d=await fn();if(ok)toast(ok);if(reloads.length)reload(...reloads);return d??true}
+  catch(e){console.error(e);toast(errText(e));return null}
+}
+async function team(body){
+  const {data,error}=await sb.functions.invoke("team",{body});
+  if(error){let msg=error.message;try{const j=await error.context.json();if(j&&j.error)msg=j.error}catch(_){}throw new Error(msg)}
+  if(data&&data.error)throw new Error(data.error);
+  return data;
+}
+const can={
+  sell:()=>["admin","manager"].includes(S.role),
+  shop:()=>["admin","lead","assembler"].includes(S.role),
+  assign:()=>["admin","lead"].includes(S.role),
+  stock:()=>["admin","partner"].includes(S.role),
+  reports:()=>S.role==="admin",
+  team:()=>S.role==="admin"
+};
+function tabsFor(){
+  const T={orders:["orders","Заказы"],shop:["shop","Цех"],stock:["stock","Склад"],reports:["reports","Отчёты"],team:["team","Команда"]};
+  const by={admin:["orders","shop","stock","reports","team"],manager:["orders","shop"],lead:["shop","orders","stock"],assembler:["shop","orders"],partner:["stock","orders"]};
+  return (by[S.role]||[]).map(k=>T[k]);
+}
+function fixTab(){const t=tabsFor().map(x=>x[0]);if(!t.includes(S.tab))S.tab=t[0]}
+const orderCost=o=>(o.items||[]).reduce((a,i)=>a+(+i.cost||0)*(+i.qty||1),0);
+const orderComm=o=>(+o.price||0)*((+(S.settings.commissions||{})[o.pay_method]||0)/100);
+const orderProfit=o=>(+o.price||0)-orderCost(o)-orderComm(o)-(+o.deliv_cost||0);
+const cfgLine=o=>(o.items||[]).map(i=>i.name+((+i.qty||1)>1?" ×"+i.qty:"")).join(", ")||"Комплектующие не указаны";
+const unacked=o=>S.changes.get(o.id)||[];
+const overdue=o=>o.ship_by&&o.status!=="cancel"&&SIDX[o.status]<SIDX.sent&&o.ship_by<todayStr();
+const stageLabel=k=>k==="cancel"?"Отменён":(STAGES.find(s=>s.k===k)||{}).t||k;
+function leds(o){
+  if(o.status==="cancel")return `<span class="pill p-bad">Отменён</span>`;
+  const i=SIDX[o.status];
+  return `<span class="leds" title="${esc(stageLabel(o.status))}" aria-label="Этап: ${esc(stageLabel(o.status))}">${STAGES.map((s,j)=>`<i class="${j<i?"on":j===i?"cur":""}"></i>`).join("")}</span>`;
+}
+function payPill(o){const st=o.pay_status||"wait";return `<span class="pill ${st==="paid"?"p-ok":st==="partial"?"p-warn":"p-bad"}">${PAYST[st]}</span>`}
+function reservedMap(){
+  const m={};
+  for(const o of S.orders.values()){
+    if(o.stock_deducted||o.status==="cancel")continue;
+    for(const it of o.items||[])if(it.stock_id)m[it.stock_id]=(m[it.stock_id]||0)+(+it.qty||1);
+  }
+  return m;
+}
+
+/* ---------- loading data ---------- */
+async function fetchAll(table,build){
+  let out=[],from=0;const size=1000;
+  for(;;){const rows=await q(build(sb.from(table)).range(from,from+size-1));out=out.concat(rows);if(rows.length<size)break;from+=size}
+  return out;
+}
+const loaders={
+  async orders(){const rows=await fetchAll("orders",t=>t.select("*").order("created_at",{ascending:false}));S.orders=new Map(rows.map(r=>[r.id,r]))},
+  async stock(){const rows=await fetchAll("stock",t=>t.select("*").order("name"));S.stock=new Map(rows.map(r=>[r.id,r]))},
+  async logs(){S.logs=await q(sb.from("stock_log").select("*").order("id",{ascending:false}).limit(60))},
+  async profiles(){const rows=await q(sb.from("profiles").select("*").order("created_at"));S.profiles=new Map(rows.map(r=>[r.id,r]))},
+  async changes(){const rows=await q(sb.from("order_events").select("*").eq("kind","change").eq("ack",false).order("id"));const m=new Map();rows.forEach(r=>{if(!m.has(r.order_id))m.set(r.order_id,[]);m.get(r.order_id).push(r)});S.changes=m},
+  async settings(){const rows=await q(sb.from("settings").select("*"));const c=rows.find(r=>r.key==="commissions");S.settings={commissions:{...DEFAULT_COMM,...(c?c.value:{})}}},
+  async events(){if(!S.modal||S.modal.type!=="order")return;const id=S.modal.id;S.events.set(id,await q(sb.from("order_events").select("*").eq("order_id",id).order("id")))}
+};
+const ALL=["orders","stock","logs","profiles","changes","settings","events"];
+const pending=new Set();let reloadTimer=null;
+function reload(...names){if(S.phase!=="app")return;names.forEach(n=>pending.add(n));clearTimeout(reloadTimer);reloadTimer=setTimeout(flush,150)}
+async function flush(){
+  const names=[...pending];pending.clear();
+  try{await Promise.all(names.map(n=>loaders[n]()));S.loadError=null}
+  catch(e){console.error(e);S.loadError=errText(e)}
+  if(names.includes("profiles")&&!checkMe())return;
+  render();
+}
+function checkMe(){
+  const me=S.profiles.get(S.uid);
+  if(!me||!me.role||!me.active){S.phase="noaccess";stopLive();closeModal();render();return false}
+  S.me=me;S.role=me.role;fixTab();return true;
+}
+function startLive(){
+  stopLive();
+  channel=sb.channel("teb-live");
+  const on=(table,fn)=>channel.on("postgres_changes",{event:"*",schema:"public",table},fn);
+  on("orders",()=>reload("orders"));
+  on("order_events",p=>{reload("changes");const oid=(p.new&&p.new.order_id)||(p.old&&p.old.order_id);if(S.modal&&S.modal.type==="order"&&(!oid||oid===S.modal.id))reload("events")});
+  on("stock",()=>reload("stock"));
+  on("stock_log",()=>reload("logs"));
+  on("profiles",()=>reload("profiles"));
+  on("settings",()=>reload("settings"));
+  channel.subscribe(st=>{
+    const was=S.live;S.live=st==="SUBSCRIBED";
+    if(S.live&&!was)reload(...ALL);      // catch up on anything missed while offline
+    else if(was!==S.live)render();
+  });
+}
+function stopLive(){if(channel){sb.removeChannel(channel);channel=null}S.live=false}
+setInterval(()=>{if(S.phase==="app"&&!document.hidden)reload(...ALL)},60000);
+document.addEventListener("visibilitychange",()=>{if(!document.hidden&&S.phase==="app")reload(...ALL)});
+
+/* ---------- sign-in ---------- */
+async function boot(){
+  if(!window.supabase){$("#root").innerHTML=`<div class="center"><h2>Страница не загрузилась</h2><p class="muted">Проверьте интернет и обновите страницу.</p></div>`;return}
+  sb=supabase.createClient(SB_URL,SB_KEY,{auth:{persistSession:true,autoRefreshToken:true}});
+  sb.auth.onAuthStateChange(ev=>{
+    if(ev==="SIGNED_OUT")setTimeout(()=>{stopLive();S.uid=null;S.me=null;S.role=null;closeModal();toLogin()},0);
+  });
+  let session=null;
+  try{const {data}=await sb.auth.getSession();session=data&&data.session}catch(e){}
+  if(session)await start(session);else await toLogin();
+}
+async function toLogin(){
+  S.phase="loading";render();
+  try{S.phase=(await q(sb.rpc("has_admin")))?"login":"setup"}catch(e){S.phase="login"}
+  render();
+}
+async function start(session){
+  S.uid=session.user.id;S.phase="loading";render();
+  try{
+    await loaders.profiles();
+    if(!checkMe())return;
+    await Promise.all([loaders.orders(),loaders.stock(),loaders.logs(),loaders.changes(),loaders.settings()]);
+    S.phase="app";S.loadError=null;
+  }catch(e){console.error(e);S.phase="error";S.loadError=errText(e)}
+  render();
+  if(S.phase==="app")startLive();
+}
+const loginEmail=l=>{l=l.trim();return l.includes("@")?l:`${l.toLowerCase()}@${LOGIN_DOMAIN}`};
+async function signIn(login,password){
+  const {data,error}=await sb.auth.signInWithPassword({email:loginEmail(login),password});
+  if(error)throw error;
+  await start(data.session);
+}
+
+/* ---------- views ---------- */
+function brandHtml(){return `<div class="brand"><div class="mark">TG</div><div><b>Teb Gaming</b><small>внутренний портал</small></div></div>`}
+function authView(){
+  if(S.phase==="setup")return `<div class="auth"><form class="auth-card" id="setupForm" autocomplete="off">
+    ${brandHtml()}
+    <h1>Первый запуск</h1>
+    <p class="small muted" style="margin:-6px 0 0">Создайте аккаунт владельца. Он получит полный доступ и сможет добавлять сотрудников.</p>
+    <label class="f">Ваше имя<input class="in" name="name" required></label>
+    <label class="f">Логин (латиницей)<input class="in" name="login" required autocapitalize="none" spellcheck="false" pattern="[A-Za-z0-9._\\-]{3,32}" title="От 3 до 32 латинских букв, цифр, точек, дефисов или _" autocomplete="username"></label>
+    <label class="f">Пароль<input class="in" name="password" type="password" minlength="6" required autocomplete="new-password"></label>
+    <label class="f">Пароль ещё раз<input class="in" name="password2" type="password" minlength="6" required autocomplete="new-password"></label>
+    <div class="form-err" role="alert"></div>
+    <button class="btn pri" type="submit">Создать аккаунт и войти</button>
+  </form></div>`;
+  return `<div class="auth"><form class="auth-card" id="loginForm">
+    ${brandHtml()}
+    <h1>Вход</h1>
+    <label class="f">Логин<input class="in" name="login" required autocapitalize="none" spellcheck="false" autocomplete="username"></label>
+    <label class="f">Пароль<input class="in" name="password" type="password" required autocomplete="current-password"></label>
+    <div class="form-err" role="alert"></div>
+    <button class="btn pri" type="submit">Войти</button>
+    <p class="small muted" style="margin:0">Логин и пароль выдаёт администратор.</p>
+  </form></div>`;
+}
+function render(){
+  const root=$("#root");
+  if(S.phase==="login"||S.phase==="setup"){
+    if(S.shown!==S.phase){root.innerHTML=authView();S.shown=S.phase;const i=root.querySelector("input");if(i)i.focus()}
+    return;
+  }
+  S.shown=S.phase;
+  if(S.phase==="loading"){root.innerHTML=`<div class="center muted">Загрузка…</div>`;return}
+  if(S.phase==="noaccess"){root.innerHTML=`<div class="center">${brandHtml().replace('class="brand"','class="brand" style="justify-content:center;color:var(--ink)"')}<h2>Доступа нет</h2><p class="muted">Ваш аккаунт отключён или ему не назначена роль. Обратитесь к администратору.</p><button class="btn" data-act="logout">Выйти</button></div>`;return}
+  if(S.phase==="error"){root.innerHTML=`<div class="center"><h2>Не удалось загрузить данные</h2><p class="muted">${esc(S.loadError)}</p><button class="btn pri" data-act="retry">Повторить</button> <button class="btn" data-act="logout">Выйти</button></div>`;return}
+  const tabs=tabsFor();
+  const all=[...S.orders.values()];
+  const shopCount=all.filter(o=>SHOP_STAGES.includes(o.status)).length;
+  const flagCount=all.filter(o=>unacked(o).length&&o.status!=="cancel").length;
+  root.innerHTML=`
+  ${S.loadError?`<div class="banner">${esc(S.loadError)}. Данные на экране могут быть устаревшими.</div>`:""}
+  <div class="app">
+    <aside>
+      ${brandHtml()}
+      ${tabs.map(([k,t])=>`<button class="nav" data-tab="${k}" ${S.tab===k?'aria-current="page"':""}>${t}${k==="shop"&&shopCount?`<span class="cnt">${shopCount}</span>`:""}${k==="orders"&&flagCount&&can.shop()?`<span class="cnt" title="Неподтверждённые изменения">${flagCount}</span>`:""}</button>`).join("")}
+      <div class="who"><b>${esc(S.me.name)}</b>${ROLES[S.role]}
+        <div class="live ${S.live?"":"off"}"><i></i>${S.live?"Обновляется само":"Подключение…"}</div>
+        <button data-act="logout">Выйти</button></div>
+    </aside>
+    <main>
+      <div class="mob-top"><div class="mark">TG</div><b>Teb Gaming</b><span class="grow">${esc(S.me.name)} · ${ROLES[S.role]}</span><button class="btn sm" data-act="logout">Выйти</button></div>
+      ${S.tab==="orders"?ordersView():S.tab==="shop"?shopView():S.tab==="stock"?stockView():S.tab==="reports"?reportsView():S.tab==="team"?teamView():""}
+    </main>
+  </div>`;
+  renderModal(false);
+}
+
+/* ----- orders ----- */
+function filteredOrders(){
+  const qq=S.f.q.trim().toLowerCase();
+  let list=[...S.orders.values()];
+  if(S.f.st==="active")list=list.filter(o=>o.status!=="cancel"&&SIDX[o.status]<SIDX.done);
+  else if(S.f.st==="flag")list=list.filter(o=>o.status!=="cancel"&&(unacked(o).length||overdue(o)||o.pay_status!=="paid"));
+  else if(S.f.st!=="all")list=list.filter(o=>o.status===S.f.st);
+  if(qq)list=list.filter(o=>[onum(o),o.client,o.phone,o.city,o.kaspi_no,cfgLine(o)].join(" ").toLowerCase().includes(qq));
+  return list;
+}
+function ordersView(){
+  const list=filteredOrders();
+  return `<div class="head"><h1>Заказы</h1>${can.sell()?`<button class="btn pri" data-act="newOrder">Новый заказ</button>`:""}</div>
+  <div class="toolbar">
+    <input class="in grow" type="search" placeholder="Поиск: номер, клиент, телефон, город, Kaspi №" value="${esc(S.f.q)}" data-f="q" aria-label="Поиск заказов">
+    <select class="in" data-f="st" aria-label="Фильтр">
+      ${[["active","В работе"],["flag","Требуют внимания"],["all","Все"],...STAGES.map(s=>[s.k,s.t]),["cancel","Отменённые"]].map(([k,t])=>`<option value="${k}" ${S.f.st===k?"selected":""}>${t}</option>`).join("")}
+    </select>
+  </div>
+  ${list.length?`<div class="tbl-wrap"><table class="otbl">
+    <thead><tr><th>Заказ</th><th>Клиент</th><th>Конфигурация</th><th class="num">Сумма</th><th>Оплата</th><th>Этап</th><th>Отправить до</th></tr></thead>
+    <tbody>${list.map(o=>`<tr class="click" data-open="${o.id}">
+      <td class="c-num"><b>${onum(o)}</b><div class="small muted">${fd(o.created_at)} · ${esc(nm(o.manager_id))}</div></td>
+      <td class="c-cli">${esc(o.client)}<div class="small muted">${esc(o.city)} ${esc(o.phone)}</div></td>
+      <td class="small c-cfg" style="max-width:300px"><div class="clamp">${esc(cfgLine(o))}</div>${unacked(o).length&&o.status!=="cancel"?`<div style="margin-top:4px"><span class="pill p-bad">Изменение не подтверждено</span></div>`:""}</td>
+      <td class="num c-sum"><b>${money(o.price)}</b><div class="small muted">${esc(o.pay_method||"")}</div></td>
+      <td class="c-pay">${payPill(o)}</td>
+      <td class="c-st">${leds(o)}<div class="small muted" style="margin-top:4px">${esc(stageLabel(o.status))}</div></td>
+      <td class="small c-ship ${overdue(o)?"":"muted"}">${overdue(o)?`<span class="pill p-bad">${fd(o.ship_by)}</span>`:fd(o.ship_by)}</td>
+    </tr>`).join("")}</tbody></table></div>`
+  :`<div class="panel empty">${S.orders.size?"Под этот фильтр заказов нет.":can.sell()?"Заказов пока нет. Нажмите «Новый заказ», чтобы оформить первый.":"Заказов пока нет."}</div>`}`;
+}
+
+/* ----- workshop board ----- */
+function shopView(){
+  const mine=S.f.shop==="mine";
+  const cols=SHOP_STAGES.map(k=>{
+    let l=[...S.orders.values()].filter(o=>o.status===k);
+    if(mine)l=l.filter(o=>o.assignee===S.uid);
+    l.sort((a,b)=>(a.ship_by||"9").localeCompare(b.ship_by||"9"));
+    return `<section class="col"><h3><span>${stageLabel(k)}</span><span class="muted">${l.length}</span></h3>
+      ${l.map(o=>{const flag=unacked(o).length;return `<button class="card ${flag?"flag":""}" data-open="${o.id}">
+        <div class="t"><span>${onum(o)}</span><span class="muted small">${esc(o.city)}</span></div>
+        <div class="cfg">${esc(cfgLine(o))}</div>
+        <div class="meta">
+          ${flag?`<span class="pill p-bad">Изменение</span>`:""}
+          ${overdue(o)?`<span class="pill p-bad">Просрочен</span>`:o.ship_by?`<span class="pill p-neu">до ${fd(o.ship_by)}</span>`:""}
+          <span class="pill ${o.assignee?"p-info":"p-warn"}">${o.assignee?esc(nm(o.assignee)):"Не назначен"}</span>
+        </div></button>`}).join("")||`<div class="muted small" style="padding:6px">Пусто</div>`}
+    </section>`}).join("");
+  return `<div class="head"><h1>Цех</h1>
+    <div class="seg" role="group" aria-label="Чьи заказы"><button data-shop="all" aria-pressed="${!mine}">Все заказы</button><button data-shop="mine" aria-pressed="${mine}">Мои</button></div></div>
+    <p class="muted small" style="margin:-8px 0 14px">Карточка с красной полосой — менеджер изменил заказ. Откройте её и подтвердите, что увидели.</p>
+    <div class="board">${cols}</div>`;
+}
+
+/* ----- warehouse ----- */
+function stockView(){
+  const res=reservedMap();const qq=S.f.stq.trim().toLowerCase();
+  let list=[...S.stock.values()].sort((a,b)=>(a.cat||"").localeCompare(b.cat||"")||a.name.localeCompare(b.name));
+  if(qq)list=list.filter(s=>(s.name+" "+(s.sku||"")).toLowerCase().includes(qq));
+  if(S.f.stcat)list=list.filter(s=>s.cat===S.f.stcat);
+  const total=[...S.stock.values()].reduce((a,s)=>a+(+s.qty||0)*(+s.cost||0),0);
+  const lows=[...S.stock.values()].filter(s=>(+s.qty||0)-(res[s.id]||0)<=(+s.min_qty||0)).length;
+  const edit=can.stock();
+  return `<div class="head"><h1>Склад</h1>${edit?`<button class="btn pri" data-act="newStock">Новая позиция</button>`:""}</div>
+  <div class="kpis">
+    <div class="kpi"><div class="l">Позиций</div><div class="v">${S.stock.size}</div></div>
+    <div class="kpi"><div class="l">Стоимость остатков</div><div class="v">${money(total)}</div></div>
+    <div class="kpi"><div class="l">Заканчиваются</div><div class="v" style="color:${lows?"var(--bad)":"inherit"}">${lows}</div></div>
+  </div>
+  <div class="toolbar"><input class="in grow" type="search" placeholder="Поиск по названию или артикулу" value="${esc(S.f.stq)}" data-f="stq" aria-label="Поиск по складу">
+    <select class="in" data-f="stcat" aria-label="Категория"><option value="">Все категории</option>${CATS.map(c=>`<option ${S.f.stcat===c?"selected":""}>${c}</option>`).join("")}</select></div>
+  ${list.length?`<div class="tbl-wrap"><table><thead><tr><th>Наименование</th><th>Категория</th><th class="num">На складе</th><th class="num">В резерве</th><th class="num">Свободно</th><th class="num">Себестоимость</th>${edit?"<th></th>":""}</tr></thead>
+  <tbody>${list.map(s=>{const r=res[s.id]||0,free=(+s.qty||0)-r,low=free<=(+s.min_qty||0);return `<tr class="${low?"low":""}">
+    <td><b>${esc(s.name)}</b>${s.sku?`<div class="small muted">${esc(s.sku)}</div>`:""}</td><td class="small">${esc(s.cat)}</td>
+    <td class="num">${+s.qty||0}</td><td class="num muted">${r||"—"}</td><td class="num"><b>${free}</b>${low?`<div class="small" style="color:var(--bad)">мин. ${+s.min_qty||0}</div>`:""}</td>
+    <td class="num">${money(s.cost)}</td>
+    ${edit?`<td class="num"><button class="btn sm" data-move="in" data-id="${s.id}">Приход</button> <button class="btn sm" data-move="out" data-id="${s.id}">Списать</button> <button class="btn sm ghost" data-editstock="${s.id}" aria-label="Изменить позицию">✎</button></td>`:""}
+  </tr>`}).join("")}</tbody></table></div>`:`<div class="panel empty">${S.stock.size?"Ничего не найдено.":"Склад пуст. Добавьте комплектующие кнопкой «Новая позиция» — тогда менеджеры смогут выбирать их в заказах, а сборка будет списывать их автоматически."}</div>`}
+  <div class="sec"><h2>Движение товара</h2>
+  ${S.logs.length?`<div class="tbl-wrap"><table><thead><tr><th>Когда</th><th>Позиция</th><th class="num">Кол-во</th><th>Причина</th><th>Кто</th></tr></thead><tbody>
+  ${S.logs.map(l=>`<tr><td class="small">${fdt(l.created_at)}</td><td>${esc((S.stock.get(l.stock_id)||{}).name||l.name||"—")}</td><td class="num" style="color:${l.delta>0?"var(--ok)":"var(--bad)"}"><b>${l.delta>0?"+":""}${l.delta}</b></td><td class="small">${esc(l.note)}</td><td class="small muted">${esc(nm(l.actor))}</td></tr>`).join("")}
+  </tbody></table></div>`:`<div class="panel empty small">Приходы, списания и расход на сборку будут видны здесь.</div>`}</div>`;
+}
+
+/* ----- reports ----- */
+function periodRange(){
+  const p=S.f.period,now=new Date();let from=null,to=null;
+  const sod=d=>new Date(d.getFullYear(),d.getMonth(),d.getDate());
+  if(p==="today")from=sod(now);
+  else if(p==="week")from=new Date(sod(now).getTime()-6*864e5);
+  else if(p==="month")from=new Date(now.getFullYear(),now.getMonth(),1);
+  else if(p==="prev"){from=new Date(now.getFullYear(),now.getMonth()-1,1);to=new Date(now.getFullYear(),now.getMonth(),1)}
+  else if(p==="year")from=new Date(now.getFullYear(),0,1);
+  else if(p==="custom"){from=S.f.from?new Date(S.f.from+"T00:00"):null;to=S.f.to?new Date(new Date(S.f.to+"T00:00").getTime()+864e5):null}
+  return {from,to};
+}
+function reportsView(){
+  const {from,to}=periodRange();
+  const all=[...S.orders.values()].filter(o=>o.status!=="cancel");
+  const inP=all.filter(o=>{const d=new Date(o.created_at);return (!from||d>=from)&&(!to||d<to)});
+  const sum=f=>inP.reduce((a,o)=>a+f(o),0);
+  const rev=sum(o=>+o.price||0),cost=sum(orderCost),comm=sum(orderComm),dl=sum(o=>+o.deliv_cost||0),prof=rev-cost-comm-dl;
+  const debt=all.reduce((a,o)=>a+Math.max(0,(+o.price||0)-(+o.paid||0)),0);
+  const inWork=all.filter(o=>SIDX[o.status]<SIDX.sent).length;
+  const group=key=>{const m={};inP.forEach(o=>{const k=key(o)||"—";m[k]=m[k]||{n:0,rev:0,prof:0};m[k].n++;m[k].rev+=+o.price||0;m[k].prof+=orderProfit(o)});return Object.entries(m).sort((a,b)=>b[1].rev-a[1].rev)};
+  const tbl=(rows,label,nameFn=k=>k)=>{const max=Math.max(1,...rows.map(r=>r[1].rev));return rows.length?`<table><thead><tr><th>${label}</th><th class="num">Заказов</th><th class="num">Выручка</th><th class="num">Прибыль</th></tr></thead><tbody>${rows.map(([k,v])=>`<tr><td>${esc(nameFn(k))}<div class="bar" style="margin-top:6px"><i style="width:${v.rev/max*100}%"></i></div></td><td class="num">${v.n}</td><td class="num">${money(v.rev)}</td><td class="num">${money(v.prof)}</td></tr>`).join("")}</tbody></table>`:`<div class="empty small">Нет продаж за период</div>`};
+  const days={};inP.forEach(o=>{const k=ymd(new Date(o.created_at));days[k]=(days[k]||0)+(+o.price||0)});
+  const dk=Object.keys(days).sort();const dmax=Math.max(1,...Object.values(days));
+  const W=Math.max(320,dk.length*34),H=170;
+  const chart=dk.length?`<div style="overflow-x:auto"><svg width="${W}" height="${H+24}" role="img" aria-label="Выручка по дням">${dk.map((k,i)=>{const h=Math.max(2,days[k]/dmax*H);return `<g><rect x="${i*34+6}" y="${H-h}" width="22" height="${h}" rx="3" fill="var(--accent)"><title>${fd(k)}: ${money(days[k])}</title></rect><text x="${i*34+17}" y="${H+16}" font-size="10" text-anchor="middle" fill="var(--ink3)">${k.slice(8,10)}.${k.slice(5,7)}</text></g>`}).join("")}</svg></div>`:`<div class="empty small">Нет продаж за период</div>`;
+  const parts={};inP.forEach(o=>(o.items||[]).forEach(i=>{parts[i.name]=(parts[i.name]||0)+(+i.qty||1)}));
+  const topParts=Object.entries(parts).sort((a,b)=>b[1]-a[1]).slice(0,8);
+  const debtors=all.filter(o=>(+o.price||0)>(+o.paid||0)).sort((a,b)=>(a.created_at||"").localeCompare(b.created_at||""));
+  const box=(title,inner)=>`<div class="tbl-wrap"><div style="padding:14px 14px 0"><h2>${title}</h2></div>${inner}</div>`;
+  return `<div class="head"><h1>Отчёты</h1>
+    <select class="in" style="width:auto" data-f="period" aria-label="Период">${[["today","Сегодня"],["week","7 дней"],["month","Этот месяц"],["prev","Прошлый месяц"],["year","Этот год"],["all","Всё время"],["custom","Свой период"]].map(([k,t])=>`<option value="${k}" ${S.f.period===k?"selected":""}>${t}</option>`).join("")}</select>
+    ${S.f.period==="custom"?`<input class="in" style="width:auto" type="date" value="${S.f.from}" data-f="from" aria-label="С"><input class="in" style="width:auto" type="date" value="${S.f.to}" data-f="to" aria-label="По">`:""}
+  </div>
+  <div class="kpis">
+    <div class="kpi"><div class="l">Выручка</div><div class="v">${money(rev)}</div></div>
+    <div class="kpi"><div class="l">Чистая прибыль</div><div class="v" style="color:${prof<0?"var(--bad)":"var(--ok)"}">${money(prof)}</div></div>
+    <div class="kpi"><div class="l">Продано ПК</div><div class="v">${inP.length}</div></div>
+    <div class="kpi"><div class="l">Средний чек</div><div class="v">${money(inP.length?rev/inP.length:0)}</div></div>
+    <div class="kpi"><div class="l">В работе сейчас</div><div class="v">${inWork}</div></div>
+    <div class="kpi"><div class="l">Не доплачено клиентами</div><div class="v" style="color:${debt?"var(--warn)":"inherit"}">${money(debt)}</div></div>
+  </div>
+  <div class="panel" style="margin-bottom:14px"><h2>Из чего складывается прибыль</h2>
+    <dl class="kv"><dt>Выручка</dt><dd>${money(rev)}</dd><dt>Комплектующие</dt><dd>− ${money(cost)}</dd><dt>Комиссии оплаты</dt><dd>− ${money(comm)} <span class="muted small">(проценты — во вкладке «Команда»)</span></dd><dt>Доставка</dt><dd>− ${money(dl)}</dd><dt><b>Прибыль</b></dt><dd><b>${money(prof)}</b> · маржа ${rev?Math.round(prof/rev*100):0}%</dd></dl></div>
+  <div class="panel" style="margin-bottom:14px"><h2>Выручка по дням</h2>${chart}</div>
+  <div class="two">
+    ${box("По способу оплаты",tbl(group(o=>o.pay_method),"Способ"))}
+    ${box("По менеджерам",tbl(group(o=>o.manager_id),"Менеджер",nm))}
+    ${box("По каналам продаж",tbl(group(o=>o.channel),"Канал"))}
+    ${box("По городам",tbl(group(o=>o.city),"Город"))}
+    ${box("Чаще всего продаются",topParts.length?`<table><tbody>${topParts.map(([k,v])=>`<tr><td>${esc(k)}</td><td class="num">${v} шт</td></tr>`).join("")}</tbody></table>`:`<div class="empty small">Нет данных</div>`)}
+    ${box("Ожидаем оплату",debtors.length?`<table><tbody>${debtors.map(o=>`<tr class="click" data-open="${o.id}"><td><b>${onum(o)}</b> ${esc(o.client)}<div class="small muted">${esc(o.pay_method)}</div></td><td class="num">${money((+o.price||0)-(+o.paid||0))}</td></tr>`).join("")}</tbody></table>`:`<div class="empty small">Все заказы оплачены</div>`)}
+  </div>`;
+}
+
+/* ----- team ----- */
+function teamView(){
+  const staff=[...S.profiles.values()];
+  return `<div class="head"><h1>Команда</h1></div>
+  <div class="panel" style="margin-bottom:14px"><h2>Добавить сотрудника</h2>
+    <form id="staffForm" autocomplete="off"><div class="grid2">
+      <label class="f">Имя<input class="in" name="name" required placeholder="Асет"></label>
+      <label class="f">Роль<select class="in" name="role">${Object.entries(ROLES).map(([k,t])=>`<option value="${k}" ${k==="manager"?"selected":""}>${t}</option>`).join("")}</select></label>
+      <label class="f">Логин (латиницей)<input class="in" name="login" required autocapitalize="none" spellcheck="false" pattern="[A-Za-z0-9._\\-]{3,32}" title="От 3 до 32 латинских букв, цифр, точек, дефисов или _" placeholder="aset"></label>
+      <label class="f">Пароль<input class="in" name="password" required minlength="6" placeholder="не короче 6 символов" autocomplete="new-password"></label>
+    </div>
+    <div style="margin-top:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap"><button class="btn pri" type="submit">Добавить</button><span class="small muted">Передайте сотруднику логин, пароль и ссылку на сайт.</span></div></form>
+  </div>
+  <div class="tbl-wrap" style="margin-bottom:14px"><table><thead><tr><th>Сотрудник</th><th>Логин</th><th>Роль</th><th></th></tr></thead><tbody>
+    ${staff.map(p=>{const self=p.id===S.uid;return `<tr style="${p.active?"":"opacity:.55"}">
+      <td>${self?`<b>${esc(p.name)}</b> <span class="small muted">— это вы</span>`:`<input class="in" style="max-width:220px" value="${esc(p.name)}" data-pname="${p.id}" aria-label="Имя">`}${p.active?"":`<div class="small" style="color:var(--bad)">Доступ отключён</div>`}</td>
+      <td class="small">${esc(p.login)}</td>
+      <td>${self?ROLES[p.role]:`<select class="in" style="width:auto" data-prole="${p.id}" aria-label="Роль">${Object.entries(ROLES).map(([k,t])=>`<option value="${k}" ${p.role===k?"selected":""}>${t}</option>`).join("")}</select>`}</td>
+      <td class="num">${self?"":`<button class="btn sm" data-pwd="${p.id}">Новый пароль</button> <button class="btn sm ${p.active?"bad":""}" data-active="${p.id}">${p.active?"Отключить":"Включить"}</button>`}</td></tr>`}).join("")}
+  </tbody></table></div>
+  <div class="panel"><h2>Комиссии по способам оплаты</h2><p class="small muted" style="margin-top:-4px">Нужны отчёту, чтобы считать чистую прибыль. Укажите свои реальные проценты Kaspi и банка.</p>
+    <div class="grid3">${PAY.map(p=>`<label class="f">${p}, %<input class="in" type="number" step="0.1" min="0" value="${(S.settings.commissions||{})[p]??0}" data-comm="${esc(p)}"></label>`).join("")}</div>
+    <div style="margin-top:12px"><button class="btn dark" data-act="saveComm">Сохранить проценты</button></div></div>`;
+}
+
+/* ---------- side sheet ---------- */
+function openModal(m){S.modal=m;renderModal(true)}
+function closeModal(){S.modal=null;$("#modal").innerHTML=""}
+function renderModal(force){
+  const el=$("#modal");
+  if(!S.modal){el.innerHTML="";return}
+  const ae=document.activeElement;
+  // never wipe a form, or a field someone is typing in
+  if(!force&&(S.modal.form||(el.contains(ae)&&/INPUT|TEXTAREA|SELECT/.test(ae.tagName)&&ae.type!=="checkbox")))return;
+  const sc=el.querySelector(".sheet")?.scrollTop||0;
+  let html="";
+  if(S.modal.type==="order")html=orderDetail(S.orders.get(S.modal.id));
+  else if(S.modal.type==="orderForm")html=orderForm(S.modal.id?S.orders.get(S.modal.id):null);
+  else if(S.modal.type==="stockForm")html=stockForm(S.modal.id?S.stock.get(S.modal.id):null);
+  else if(S.modal.type==="move")html=moveForm(S.stock.get(S.modal.id),S.modal.dir);
+  else if(S.modal.type==="pwd")html=pwdForm(S.profiles.get(S.modal.id));
+  if(!html){closeModal();return}
+  el.innerHTML=`<div class="scrim" data-close="1"><div class="sheet ${S.modal.narrow?"narrow":""}" role="dialog" aria-modal="true">${html}</div></div>`;
+  const sh=el.querySelector(".sheet");
+  if(!force)sh.scrollTop=sc;
+  else{const f=sh.querySelector("form input:not([type=checkbox]),form select,form textarea");if(f&&S.modal.form)f.focus();else sh.querySelector("button")?.focus()}
+}
+function openOrder(id){S.modal={type:"order",id};renderModal(true);reload("events")}
+
+function orderDetail(o){
+  if(!o)return"";
+  const i=SIDX[o.status]??-1;const ch=unacked(o);const cancelled=o.status==="cancel";
+  const next=!cancelled&&i<STAGES.length-1?STAGES[i+1]:null;
+  const prev=!cancelled&&i>1?STAGES[i-1]:null;
+  const checks=o.checks||{},itemChecks=o.item_checks||{};
+  const allChecked=CHECKLIST.every((_,j)=>checks[j]);
+  const blockReady=next&&next.k==="ready"&&!allChecked;
+  const canMove=next&&(can.shop()||(can.sell()&&["queue","sent","done"].includes(next.k)));
+  const shopStaff=[...S.profiles.values()].filter(p=>(p.active&&["lead","assembler"].includes(p.role))||p.id===o.assignee);
+  const ev=S.events.get(o.id);
+  const comments=(ev||[]).filter(e=>e.kind==="comment");
+  const history=(ev||[]).filter(e=>e.kind!=="comment").slice().reverse();
+  return `<div class="sheet-head"><div style="flex:1;min-width:0"><h1>${onum(o)}</h1><div class="small muted">${esc(o.channel||"")}${o.kaspi_no?" · Kaspi № "+esc(o.kaspi_no):""} · оформил ${esc(nm(o.manager_id))}, ${fdt(o.created_at)}</div></div>
+    ${can.sell()&&!cancelled?`<button class="btn" data-edit="${o.id}">Изменить</button>`:""}
+    <button class="btn ghost" data-close="1" aria-label="Закрыть">✕</button></div>
+  ${cancelled?`<div class="alert bad"><b>Заказ отменён</b></div>`:`<div class="stage-line">${STAGES.map((s,j)=>`<div class="${j<i?"on":j===i?"cur":""}">${s.t}</div>`).join("")}</div>`}
+  ${ch.length&&!cancelled?`<div class="alert bad"><div style="flex:1"><b>Менеджер изменил заказ</b>${ch.map(c=>`<div class="small" style="margin-top:4px">${fdt(c.created_at)} · ${esc(nm(c.actor))}: ${esc(c.body)}</div>`).join("")}</div>${can.shop()?`<button class="btn sm dark" data-ack="${o.id}">Увидел, учту</button>`:""}</div>`:""}
+  ${overdue(o)?`<div class="alert warn small">Плановая дата отправки (${fd(o.ship_by)}) уже прошла.</div>`:""}
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 18px">
+    ${next&&canMove?`<button class="btn pri" data-next="${o.id}" ${blockReady?"disabled":""}>${next.k==="queue"?"Передать в цех":"Дальше: "+next.t}</button>`:""}
+    ${prev&&can.shop()?`<button class="btn" data-prev="${o.id}">Вернуть на «${prev.t}»</button>`:""}
+    ${can.sell()&&!cancelled&&i<SIDX.sent?`<button class="btn bad ghost" data-cancel="${o.id}">Отменить заказ</button>`:""}
+    ${can.sell()&&cancelled?`<button class="btn" data-restore="${o.id}">Восстановить</button>`:""}
+    ${S.role==="admin"&&cancelled?`<button class="btn bad ghost" data-delorder="${o.id}">Удалить навсегда</button>`:""}
+  </div>
+  ${blockReady&&can.shop()?`<div class="alert warn small">Чтобы отметить «Готов к отправке», закройте все пункты чек-листа комплектации ниже.</div>`:""}
+  <div class="two">
+    <div class="panel"><h2>Клиент и доставка</h2><dl class="kv">
+      <dt>Клиент</dt><dd>${esc(o.client)}</dd><dt>Телефон</dt><dd><a href="tel:${esc((o.phone||"").replace(/[^\d+]/g,""))}">${esc(o.phone)}</a></dd>
+      <dt>Город</dt><dd>${esc(o.city)}</dd><dt>Адрес</dt><dd>${esc(o.address)||"—"}</dd>
+      <dt>Доставка</dt><dd>${esc(DELIV[o.deliv]||"—")}</dd><dt>Отправить до</dt><dd>${fd(o.ship_by)}</dd>
+      ${o.tracking?`<dt>Отправка</dt><dd>${esc(o.tracking)}</dd>`:""}
+    </dl>
+    ${SIDX[o.status]>=SIDX.ready&&!cancelled&&S.role!=="partner"?`<label class="f" style="margin-top:12px">Служба доставки и номер накладной<input class="in" value="${esc(o.tracking||"")}" data-field="tracking" data-id="${o.id}" placeholder="Например: наш курьер, накладная 12345"></label>`:""}
+    </div>
+    <div class="panel"><h2>Деньги</h2><dl class="kv">
+      <dt>Цена продажи</dt><dd><b>${money(o.price)}</b></dd><dt>Способ</dt><dd>${esc(o.pay_method)}</dd>
+      <dt>Статус</dt><dd>${payPill(o)} ${(+o.paid||0)<(+o.price||0)?`<span class="small muted">получено ${money(o.paid)}</span>`:""}</dd>
+      <dt>Когда получены</dt><dd>${fdt(o.paid_at)}</dd><dt>От кого</dt><dd>${esc(o.payer)||"—"}</dd>
+      ${can.reports()?`<dt>Себестоимость</dt><dd>${money(orderCost(o))}</dd><dt>Прибыль</dt><dd><b>${money(orderProfit(o))}</b></dd>`:""}
+    </dl></div>
+  </div>
+  <div class="panel sec"><h2>Комплектующие <span class="muted small" style="font-weight:500">— отмечайте, что установлено</span></h2>
+    ${(o.items||[]).map((it,j)=>`<label class="check ${itemChecks[j]?"done":""}"><input type="checkbox" ${itemChecks[j]?"checked":""} ${can.shop()&&!cancelled?"":"disabled"} data-icheck="${j}" data-id="${o.id}"><span>${esc(it.name)}${(+it.qty||1)>1?" × "+it.qty:""}${it.stock_id?"":` <span class="pill p-warn">не со склада</span>`}</span></label>`).join("")||`<div class="muted small">Не указаны</div>`}
+    ${o.note?`<div class="alert info small"><div><b>Пожелания для цеха:</b> ${esc(o.note)}</div></div>`:""}
+  </div>
+  <div class="two sec">
+    <div class="panel"><h2>Чек-лист комплектации</h2>
+      ${CHECKLIST.map((t,j)=>`<label class="check ${checks[j]?"done":""}"><input type="checkbox" ${checks[j]?"checked":""} ${can.shop()&&!cancelled?"":"disabled"} data-check="${j}" data-id="${o.id}"><span>${t}</span></label>`).join("")}
+      <div class="small muted" style="margin-top:6px">${CHECKLIST.filter((_,j)=>checks[j]).length} из ${CHECKLIST.length}</div>
+    </div>
+    <div class="panel"><h2>Сборщик и видео</h2>
+      <label class="f">Ответственный${can.assign()&&!cancelled?`<select class="in" data-assign="${o.id}"><option value="">Не назначен</option>${shopStaff.map(p=>`<option value="${p.id}" ${o.assignee===p.id?"selected":""}>${esc(p.name)}</option>`).join("")}</select>`:`<div style="font-weight:500;color:var(--ink)">${esc(o.assignee?nm(o.assignee):"Не назначен")} ${can.shop()&&!cancelled&&o.assignee!==S.uid?`<button class="btn sm" data-take="${o.id}">Взять себе</button>`:""}</div>`}</label>
+      ${S.role!=="partner"?`<label class="f" style="margin-top:12px">Ссылка на видео сборки и теста<input class="in" type="url" value="${esc(o.video_url||"")}" placeholder="Google Drive, YouTube, Telegram…" data-field="video_url" data-id="${o.id}"></label>`:""}
+      ${o.video_url&&/^https?:\/\//i.test(o.video_url)?`<div class="small" style="margin-top:6px"><a href="${esc(o.video_url)}" target="_blank" rel="noopener">Открыть видео</a></div>`:""}
+      <label class="check" style="margin-top:8px;padding-left:0"><input type="checkbox" ${o.video_sent?"checked":""} ${S.role==="partner"?"disabled":""} data-flag="video_sent" data-id="${o.id}"><span>Видео отправлено клиенту</span></label>
+    </div>
+  </div>
+  <div class="panel sec"><h2>Переписка по заказу</h2>
+    <div class="feed">${ev?comments.map(c=>`<div class="msg"><div class="h">${esc(nm(c.actor))} · ${fdt(c.created_at)}</div>${esc(c.body)}</div>`).join("")||`<div class="muted small">Вопросы между продажами и цехом пишите здесь — вместо звонков и мессенджеров.</div>`:`<div class="muted small">Загрузка…</div>`}</div>
+    ${S.role!=="partner"?`<div style="display:flex;gap:8px;margin-top:10px"><input class="in" id="cmt" placeholder="Например: клиент спрашивает, когда отправка?" aria-label="Сообщение"><button class="btn dark" data-comment="${o.id}">Отправить</button></div>`:""}
+  </div>
+  <div class="panel sec"><h2>История</h2>
+    ${ev?history.map(h=>h.kind==="status"
+      ?`<div class="small" style="padding:4px 0"><span class="muted">${fdt(h.created_at)}</span> · ${esc(nm(h.actor))} → <b>${esc(stageLabel(h.status))}</b></div>`
+      :`<div class="small" style="padding:4px 0"><span class="muted">${fdt(h.created_at)}</span> · ${esc(nm(h.actor))} изменил заказ: ${esc(h.body)} ${h.ack?`<span class="pill p-ok">подтвердил ${esc(nm(h.ack_by))}</span>`:`<span class="pill p-bad">не подтверждено</span>`}</div>`).join(""):`<div class="muted small">Загрузка…</div>`}
+  </div>`;
+}
+
+function orderForm(o){
+  const e=o||{items:[{name:"",qty:1,cost:0,stock_id:""}],pay_status:"paid",pay_method:PAY[0],channel:CHANNELS[0],city:"Алматы",deliv:"own"};
+  S.modal.form=true;
+  if(!S.modal.items)S.modal.items=JSON.parse(JSON.stringify(e.items&&e.items.length?e.items:[{name:"",qty:1,cost:0,stock_id:""}]));
+  const res=reservedMap();
+  const stockOpts=[...S.stock.values()].sort((a,b)=>a.name.localeCompare(b.name));
+  const inShop=o&&SIDX[o.status]>=SIDX.queue;
+  return `<div class="sheet-head"><div style="flex:1"><h1>${o?"Изменить "+onum(o):"Новый заказ"}</h1>${inShop?`<div class="small" style="color:var(--bad)">Заказ уже в цехе — сборщики увидят изменения и должны будут их подтвердить.</div>`:""}</div><button class="btn ghost" data-close="1" aria-label="Закрыть">✕</button></div>
+  <form id="orderForm" autocomplete="off">
+  <div class="panel sec"><h2>Продажа</h2><div class="grid3">
+    <label class="f">Канал<select class="in" name="channel">${CHANNELS.map(c=>`<option ${e.channel===c?"selected":""}>${c}</option>`).join("")}</select></label>
+    <label class="f">№ заказа Kaspi<input class="in" name="kaspi_no" value="${esc(e.kaspi_no||"")}"></label>
+    <label class="f">Отправить до<input class="in" type="date" name="ship_by" value="${esc(e.ship_by||"")}"></label>
+  </div></div>
+  <div class="panel sec"><h2>Клиент</h2><div class="grid2">
+    <label class="f">ФИО<input class="in" name="client" required value="${esc(e.client||"")}"></label>
+    <label class="f">Телефон<input class="in" name="phone" type="tel" required placeholder="+7 7__ ___ __ __" value="${esc(e.phone||"")}"></label>
+    <label class="f">Город<select class="in" name="city">${CITIES.map(c=>`<option ${e.city===c?"selected":""}>${c}</option>`).join("")}</select></label>
+    <label class="f">Адрес<input class="in" name="address" value="${esc(e.address||"")}"></label>
+    <label class="f">Доставка<select class="in" name="deliv">${Object.entries(DELIV).map(([k,t])=>`<option value="${k}" ${e.deliv===k?"selected":""}>${t}</option>`).join("")}</select></label>
+    <label class="f">Наши расходы на доставку, ₸<input class="in" type="number" min="0" name="deliv_cost" value="${+e.deliv_cost||0}"></label>
+  </div></div>
+  <div class="panel sec"><h2>Комплектующие</h2>
+    <div class="items-row small muted" style="font-weight:600"><span>Позиция</span><span>Кол-во</span><span>Себест., ₸</span><span></span></div>
+    <div id="items">${S.modal.items.map((it,j)=>itemRow(it,j)).join("")}</div>
+    <datalist id="stocklist">${stockOpts.map(s=>`<option value="${esc(s.name)}">${esc(s.cat||"")} · свободно ${(+s.qty||0)-(res[s.id]||0)}</option>`).join("")}</datalist>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;gap:8px;flex-wrap:wrap"><button type="button" class="btn sm" data-additem="1">Добавить позицию</button><span class="small muted" id="costSum">Себестоимость: ${money(S.modal.items.reduce((a,i)=>a+(+i.cost||0)*(+i.qty||1),0))}</span></div>
+    <p class="small muted" style="margin:8px 0 0">Начните вводить название и выберите позицию со склада — себестоимость подставится сама. Позиции не со склада тоже можно вписать.</p>
+  </div>
+  <div class="panel sec"><h2>Оплата</h2><div class="grid3">
+    <label class="f">Цена продажи, ₸<input class="in" type="number" min="0" name="price" required value="${e.price??""}"></label>
+    <label class="f">Способ оплаты<select class="in" name="pay_method">${PAY.map(p=>`<option ${e.pay_method===p?"selected":""}>${p}</option>`).join("")}</select></label>
+    <label class="f">Статус оплаты<select class="in" name="pay_status">${Object.entries(PAYST).map(([k,t])=>`<option value="${k}" ${e.pay_status===k?"selected":""}>${t}</option>`).join("")}</select></label>
+    <label class="f">Получено, ₸<input class="in" type="number" min="0" name="paid" value="${o?(e.paid??""):""}" placeholder="при «Оплачено» — вся сумма"></label>
+    <label class="f">Когда получены<input class="in" type="datetime-local" name="paid_at" value="${toLocalInput(e.paid_at||(o?"":new Date().toISOString()))}"></label>
+    <label class="f">От кого<input class="in" name="payer" value="${esc(e.payer||"")}" placeholder="ФИО плательщика"></label>
+  </div></div>
+  <div class="panel sec"><h2>Для цеха</h2>
+    <label class="f">Пожелания и особенности сборки<textarea class="in" name="note" placeholder="Подсветка, кабель-менеджмент, программы клиента, язык Windows…">${esc(e.note||"")}</textarea></label>
+    ${inShop?`<label class="f" style="margin-top:10px">Что изменилось — коротко для сборщиков<input class="in" name="change_text" placeholder="Например: заменили SSD на 2 ТБ, доплата получена"></label>`:""}
+  </div>
+  <div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap">
+    <button class="btn pri" type="submit" value="save">${o?"Сохранить изменения":"Сохранить заказ"}</button>
+    ${!o?`<button class="btn dark" type="submit" value="queue">Сохранить и передать в цех</button>`:""}
+    <button class="btn ghost" type="button" data-close="1">Отмена</button>
+  </div></form>`;
+}
+function itemRow(it,j){
+  return `<div class="items-row" data-row="${j}"><input class="in" list="stocklist" placeholder="Например: RTX 4060" value="${esc(it.name)}" data-iname="${j}" aria-label="Позиция"><input class="in" type="number" min="1" step="1" value="${+it.qty||1}" data-iqty="${j}" aria-label="Количество"><input class="in" type="number" min="0" value="${+it.cost||0}" data-icost="${j}" aria-label="Себестоимость"><button type="button" class="btn sm ghost" data-delitem="${j}" aria-label="Удалить позицию">✕</button></div>`;
+}
+function stockByName(name){name=name.trim().toLowerCase();return [...S.stock.values()].find(s=>s.name.trim().toLowerCase()===name)}
+function readItemsFromDom(){
+  return [...document.querySelectorAll("#items .items-row")].map(r=>{
+    const j=r.dataset.row;const name=r.querySelector(`[data-iname="${j}"]`).value.trim();const st=stockByName(name);
+    return {stock_id:st?st.id:"",name:st?st.name:name,qty:Math.max(1,Math.round(+r.querySelector(`[data-iqty="${j}"]`).value||1)),cost:+r.querySelector(`[data-icost="${j}"]`).value||0};
+  });
+}
+function updCost(){const el=$("#costSum");if(el)el.textContent="Себестоимость: "+money(readItemsFromDom().reduce((a,i)=>a+i.cost*i.qty,0))}
+
+function stockForm(s){
+  S.modal.form=true;S.modal.narrow=true;const e=s||{cat:CATS[0],min_qty:1,cost:0};
+  return `<div class="sheet-head"><h1 style="flex:1">${s?"Изменить позицию":"Новая позиция"}</h1><button class="btn ghost" data-close="1" aria-label="Закрыть">✕</button></div>
+  <form id="stockForm" class="panel sec" style="display:grid;gap:12px">
+    <label class="f">Наименование<input class="in" name="name" required value="${esc(e.name||"")}" placeholder="RTX 4060 8GB"></label>
+    <label class="f">Категория<select class="in" name="cat">${CATS.map(c=>`<option ${e.cat===c?"selected":""}>${c}</option>`).join("")}</select></label>
+    <label class="f">Артикул / серия (необязательно)<input class="in" name="sku" value="${esc(e.sku||"")}"></label>
+    <div class="grid2">
+      ${s?"":`<label class="f">Начальный остаток, шт<input class="in" type="number" min="0" step="1" name="qty" value="0"></label>`}
+      <label class="f">Себестоимость, ₸<input class="in" type="number" min="0" name="cost" value="${+e.cost||0}"></label>
+      <label class="f">Минимальный остаток<input class="in" type="number" min="0" step="1" name="min_qty" value="${+e.min_qty||0}"></label>
+    </div>
+    ${s?`<p class="small muted" style="margin:0">Количество меняется только приходом и списанием — так каждое движение попадает в журнал.</p>`:""}
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn pri" type="submit">Сохранить</button>${s?`<button class="btn bad ghost" type="button" data-delstock="${s.id}">Удалить позицию</button>`:""}</div>
+  </form>`;
+}
+function moveForm(s,dir){
+  if(!s)return"";S.modal.form=true;S.modal.narrow=true;
+  return `<div class="sheet-head"><h1 style="flex:1">${dir==="in"?"Приход":"Списание"}</h1><button class="btn ghost" data-close="1" aria-label="Закрыть">✕</button></div>
+  <p><b>${esc(s.name)}</b> <span class="muted">· сейчас ${+s.qty||0} шт</span></p>
+  <form id="moveForm" class="panel" style="display:grid;gap:12px">
+    <label class="f">Количество, шт<input class="in" type="number" min="1" step="1" name="n" required value="1"></label>
+    ${dir==="in"?`<label class="f">Цена закупки за шт, ₸ (обновит себестоимость)<input class="in" type="number" min="0" name="cost" value="${+s.cost||0}"></label><label class="f">Поставщик / комментарий<input class="in" name="note" placeholder="Например: поставщик, № накладной"></label>`
+    :`<label class="f">Причина<select class="in" name="note"><option>Брак / возврат поставщику</option><option>Гарантийная замена</option><option>Продажа отдельно</option><option>Инвентаризация</option><option>Другое</option></select></label>`}
+    <button class="btn pri" type="submit">${dir==="in"?"Оприходовать":"Списать"}</button>
+  </form>`;
+}
+function pwdForm(p){
+  if(!p)return"";S.modal.form=true;S.modal.narrow=true;
+  return `<div class="sheet-head"><h1 style="flex:1">Новый пароль</h1><button class="btn ghost" data-close="1" aria-label="Закрыть">✕</button></div>
+  <p>${esc(p.name)} <span class="muted">· логин ${esc(p.login)}</span></p>
+  <form id="pwdForm" class="panel" style="display:grid;gap:12px">
+    <label class="f">Новый пароль<input class="in" name="password" required minlength="6" autocomplete="new-password"></label>
+    <button class="btn pri" type="submit">Сохранить пароль</button>
+  </form>`;
+}
+
+/* ---------- actions ---------- */
+const setStatus=(o,status,ok)=>act(()=>q(sb.from("orders").update({status}).eq("id",o.id)),ok||stageLabel(status),"orders","stock","logs","events");
+function orderDiff(old,data){
+  const lbl={client:"клиент",phone:"телефон",city:"город",address:"адрес",ship_by:"дата отправки",note:"пожелания",deliv:"доставка"};
+  const d=[];
+  for(const k in lbl)if((old[k]||"")!==(data[k]||""))d.push(lbl[k]+": "+(k==="deliv"?DELIV[data[k]]:k==="ship_by"?fd(data[k]):data[k]||"—"));
+  const a=cfgLine(old),b=cfgLine({items:data.items});if(a!==b)d.push("комплектующие: "+b);
+  return d;
+}
+async function saveOrderForm(form,go){
+  const fdx=new FormData(form);const v=k=>(fdx.get(k)||"").toString().trim();
+  const items=readItemsFromDom().filter(i=>i.name);
+  const price=+v("price")||0;const pay_status=v("pay_status");
+  const paid=v("paid")===""?(pay_status==="paid"?price:0):+v("paid");
+  const data={channel:v("channel"),kaspi_no:v("kaspi_no"),ship_by:v("ship_by")||null,client:v("client"),phone:v("phone"),city:v("city"),address:v("address"),
+    deliv:v("deliv"),deliv_cost:+v("deliv_cost")||0,items,price,pay_method:v("pay_method"),pay_status,paid,paid_at:fromLocalInput(v("paid_at")),payer:v("payer"),note:v("note")};
+  const old=S.modal.id?S.orders.get(S.modal.id):null;
+  if(!old){
+    const status=go==="queue"?"queue":"new";
+    const row=await act(()=>q(sb.from("orders").insert({...data,status}).select().single()),status==="queue"?"Заказ передан в цех":"Заказ сохранён","orders","stock");
+    if(row){S.orders.set(row.id,row);closeModal();render()}
+    return;
+  }
+  const diffs=orderDiff(old,data);const txt=v("change_text");
+  const notify=old.status!=="cancel"&&SIDX[old.status]>=SIDX.queue&&(txt||diffs.length);
+  const ok=await act(async()=>{
+    await q(sb.from("orders").update(data).eq("id",old.id));
+    if(notify)await q(sb.from("order_events").insert({order_id:old.id,kind:"change",actor:S.uid,body:(txt?txt+(diffs.length?" — ":""):"")+diffs.join("; ")}));
+  },"Изменения сохранены","orders","changes","stock","logs");
+  if(ok){S.modal={type:"order",id:old.id};renderModal(true);reload("events")}
+}
+
+document.addEventListener("click",async e=>{
+  const t=e.target.closest("[data-tab],[data-open],[data-act],[data-close],[data-edit],[data-next],[data-prev],[data-cancel],[data-restore],[data-delorder],[data-ack],[data-take],[data-comment],[data-additem],[data-delitem],[data-move],[data-editstock],[data-delstock],[data-shop],[data-pwd],[data-active]");
+  if(!t)return;const d=t.dataset;
+  if(d.close&&t.classList.contains("scrim")&&e.target!==t)return; // clicks inside the sheet don't close it
+  if(d.tab){S.tab=d.tab;history.replaceState(null,"","#"+d.tab);render();window.scrollTo(0,0);return}
+  if(d.shop){S.f.shop=d.shop;render();return}
+  if(d.close){closeModal();return}
+  if(d.open){openOrder(d.open);return}
+  if(d.act==="logout"){await sb.auth.signOut();return}
+  if(d.act==="retry"){const {data}=await sb.auth.getSession();if(data&&data.session)start(data.session);else toLogin();return}
+  if(d.act==="newOrder"){openModal({type:"orderForm"});return}
+  if(d.act==="newStock"){openModal({type:"stockForm"});return}
+  if(d.act==="saveComm"){const c={};document.querySelectorAll("[data-comm]").forEach(i=>c[i.dataset.comm]=+i.value||0);await act(()=>q(sb.from("settings").upsert({key:"commissions",value:c})),"Проценты сохранены","settings");return}
+  if(d.edit){openModal({type:"orderForm",id:d.edit});return}
+  if(d.pwd){openModal({type:"pwd",id:d.pwd});return}
+  if(d.active){const p=S.profiles.get(d.active);if(!p)return;
+    if(p.active&&!confirm(`Отключить доступ: ${p.name}? Сотрудник больше не сможет войти, его заказы и история сохранятся.`))return;
+    await act(()=>team({action:"active",user_id:p.id,active:!p.active}),p.active?"Доступ отключён":"Доступ включён","profiles");return}
+  const o=S.orders.get(d.next||d.prev||d.cancel||d.restore||d.delorder||d.ack||d.take||d.comment);
+  if(d.next&&o){const n=STAGES[SIDX[o.status]+1];if(n){t.disabled=true;await setStatus(o,n.k,n.k==="queue"?"Заказ передан в цех":null)}return}
+  if(d.prev&&o){const p=STAGES[SIDX[o.status]-1];if(p){t.disabled=true;await setStatus(o,p.k)}return}
+  if(d.cancel&&o){if(confirm(`Отменить заказ ${onum(o)}? Списанные комплектующие вернутся на склад.`))await setStatus(o,"cancel");return}
+  if(d.restore&&o){await setStatus(o,"new","Заказ восстановлен");return}
+  if(d.delorder&&o){if(confirm(`Удалить заказ ${onum(o)} навсегда? Его нельзя будет восстановить.`)){if(await act(()=>q(sb.from("orders").delete().eq("id",o.id)),"Заказ удалён","orders","changes")){S.orders.delete(o.id);closeModal();render()}}return}
+  if(d.ack&&o){await act(()=>q(sb.rpc("ack_changes",{p_order:o.id})),"Изменение подтверждено","changes","events");return}
+  if(d.take&&o){await act(()=>q(sb.from("orders").update({assignee:S.uid}).eq("id",o.id)),"Заказ за вами","orders");return}
+  if(d.comment&&o){const i=$("#cmt");const v=i.value.trim();if(!v)return;
+    if(await act(()=>q(sb.from("order_events").insert({order_id:o.id,kind:"comment",actor:S.uid,body:v})),null,"events")){i.value="";i.blur()}return}
+  if(d.additem){S.modal.items=readItemsFromDom();S.modal.items.push({name:"",qty:1,cost:0,stock_id:""});$("#items").innerHTML=S.modal.items.map((it,j)=>itemRow(it,j)).join("");$(`[data-iname="${S.modal.items.length-1}"]`).focus();return}
+  if(d.delitem){S.modal.items=readItemsFromDom();S.modal.items.splice(+d.delitem,1);$("#items").innerHTML=S.modal.items.map((it,j)=>itemRow(it,j)).join("");updCost();return}
+  if(d.move){openModal({type:"move",id:d.id,dir:d.move});return}
+  if(d.editstock){openModal({type:"stockForm",id:d.editstock});return}
+  if(d.delstock){if(confirm("Удалить позицию со склада? Журнал движений сохранится.")){if(await act(()=>q(sb.from("stock").delete().eq("id",d.delstock)),"Позиция удалена","stock"))closeModal()}return}
+});
+
+document.addEventListener("input",e=>{
+  const t=e.target;
+  if(t.dataset.f&&t.type==="search"){S.f[t.dataset.f]=t.value;const pos=t.selectionStart;render();const n=document.querySelector(`[data-f="${t.dataset.f}"]`);if(n){n.focus();try{n.setSelectionRange(pos,pos)}catch(_){}}return}
+  if(t.dataset.iname!==undefined){const s=stockByName(t.value);if(s){const c=document.querySelector(`[data-icost="${t.dataset.iname}"]`);if(c&&!+c.value)c.value=s.cost||0}updCost();return}
+  if(t.dataset.iqty!==undefined||t.dataset.icost!==undefined)updCost();
+});
+document.addEventListener("change",async e=>{
+  const t=e.target;const d=t.dataset;
+  if(d.f&&t.type!=="search"){S.f[d.f]=t.value;render();return}
+  if(d.prole){await act(()=>q(sb.from("profiles").update({role:t.value}).eq("id",d.prole)),"Роль изменена","profiles");return}
+  if(d.pname){const v=t.value.trim();if(v)await act(()=>q(sb.from("profiles").update({name:v}).eq("id",d.pname)),"Имя сохранено","profiles");return}
+  const o=S.orders.get(d.id||d.assign);if(!o)return;
+  if(d.check!==undefined){t.closest(".check")?.classList.toggle("done",t.checked);await act(()=>q(sb.rpc("set_check",{p_order:o.id,p_field:"checks",p_key:d.check,p_val:t.checked})),null,"orders");return}
+  if(d.icheck!==undefined){t.closest(".check")?.classList.toggle("done",t.checked);await act(()=>q(sb.rpc("set_check",{p_order:o.id,p_field:"item_checks",p_key:d.icheck,p_val:t.checked})),null,"orders");return}
+  if(d.flag){await act(()=>q(sb.from("orders").update({[d.flag]:t.checked}).eq("id",o.id)),null,"orders");return}
+  if(d.field){const v=t.value.trim();if((o[d.field]||"")!==v)await act(()=>q(sb.from("orders").update({[d.field]:v}).eq("id",o.id)),"Сохранено","orders");return}
+  if(d.assign){await act(()=>q(sb.from("orders").update({assignee:t.value||null}).eq("id",o.id)),"Ответственный назначен","orders");return}
+});
+document.addEventListener("focusout",e=>{
+  if(S.modal&&!S.modal.form&&e.target.closest&&e.target.closest("#modal"))setTimeout(()=>{if(!$("#modal").contains(document.activeElement))renderModal(false)},60);
+});
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"&&S.modal)closeModal();
+  if(e.key==="Enter"&&e.target.id==="cmt"){e.preventDefault();document.querySelector("[data-comment]")?.click()}
+});
+function formBusy(f,b){f.querySelectorAll("button").forEach(x=>x.disabled=b)}
+function formErr(f,msg){const el=f.querySelector(".form-err");if(el)el.textContent=msg||""}
+document.addEventListener("submit",async e=>{
+  e.preventDefault();const f=e.target;const fdx=new FormData(f);const v=k=>(fdx.get(k)||"").toString().trim();
+  if(f.id==="loginForm"){formErr(f,"");formBusy(f,true);try{await signIn(v("login"),fdx.get("password")||"")}catch(err){formErr(f,errText(err));formBusy(f,false)}return}
+  if(f.id==="setupForm"){
+    formErr(f,"");const p1=fdx.get("password")||"",p2=fdx.get("password2")||"";
+    if(p1!==p2){formErr(f,"Пароли не совпадают");return}
+    formBusy(f,true);
+    try{await team({action:"bootstrap",name:v("name"),login:v("login"),password:p1});await signIn(v("login"),p1)}
+    catch(err){formErr(f,errText(err));formBusy(f,false)}
+    return}
+  if(f.id==="orderForm"){formBusy(f,true);await saveOrderForm(f,e.submitter?.value||"save");if(document.body.contains(f))formBusy(f,false);return}
+  if(f.id==="stockForm"){
+    const old=S.modal.id?S.stock.get(S.modal.id):null;
+    const data={name:v("name"),cat:v("cat"),sku:v("sku"),cost:+v("cost")||0,min_qty:Math.max(0,Math.round(+v("min_qty")||0))};
+    formBusy(f,true);
+    const ok=await act(async()=>{
+      if(old){await q(sb.from("stock").update(data).eq("id",old.id));return}
+      const row=await q(sb.from("stock").insert(data).select().single());
+      const n=Math.max(0,Math.round(+v("qty")||0));
+      if(n)await q(sb.rpc("stock_move",{p_stock:row.id,p_delta:n,p_note:"Начальный остаток"}));
+    },old?"Позиция обновлена":"Позиция добавлена","stock","logs");
+    if(ok)closeModal();else formBusy(f,false);
+    return}
+  if(f.id==="moveForm"){
+    const s=S.stock.get(S.modal.id);const dir=S.modal.dir;const n=Math.max(1,Math.round(+v("n")||1));
+    if(dir==="out"&&n>(+s.qty||0)&&!confirm("Списываете больше, чем числится на складе. Продолжить?"))return;
+    const note=(dir==="in"?"Приход":"Списание")+(v("note")?": "+v("note"):"");
+    formBusy(f,true);
+    const ok=await act(()=>q(sb.rpc("stock_move",{p_stock:s.id,p_delta:dir==="in"?n:-n,p_note:note,p_cost:dir==="in"?(+v("cost")||0):null})),dir==="in"?"Оприходовано":"Списано","stock","logs");
+    if(ok)closeModal();else formBusy(f,false);
+    return}
+  if(f.id==="staffForm"){
+    formBusy(f,true);
+    const login=v("login").toLowerCase();
+    const ok=await act(()=>team({action:"create",name:v("name"),login,password:fdx.get("password")||"",role:v("role")}),`Сотрудник добавлен. Логин: ${login}`,"profiles");
+    if(ok)f.reset();formBusy(f,false);
+    return}
+  if(f.id==="pwdForm"){
+    formBusy(f,true);
+    const ok=await act(()=>team({action:"password",user_id:S.modal.id,password:fdx.get("password")||""}),"Пароль изменён");
+    if(ok)closeModal();else formBusy(f,false);
+    return}
+});
+window.addEventListener("hashchange",()=>{const t=location.hash.slice(1);if(S.phase==="app"&&tabsFor().some(x=>x[0]===t)){S.tab=t;render()}});
+
+boot();
+</script>
+</body>
+</html>
